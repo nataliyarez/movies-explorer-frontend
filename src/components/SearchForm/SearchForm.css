@@ -1,6 +1,7 @@
 .search{
     margin-bottom: 10px;
-    border-bottom: 1px solid rgba(84,84,84,.7)
+    border-bottom: 1px solid;
+    border-color: #424242;
 }
 
 .form {

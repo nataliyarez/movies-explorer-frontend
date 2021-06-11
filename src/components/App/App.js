@@ -12,7 +12,9 @@ import Header from '../Header/Header';
 
 import  '../../styles/page.css';
 import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from '../MoviesCardList/MoviesCardList'
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import MoviesMore from '../MoviesMore/MoviesMore';
+import Footer from '../Footer/Footer';
 
 
 
@@ -24,6 +26,8 @@ function App() {
           <Header/>
           <SearchForm />
           <MoviesCardList />
+          <MoviesMore/>
+          <Footer/>
 
 
         </div>
