@@ -1,14 +1,19 @@
 import React from "react";
 import  '../Header/Header.css';
 import headerLogo from "../../images/header_logo.svg";
-import headerMenu from "../../images/header_icon.svg";
 
-function Header() {
+function Header(props) {
+
+
     return (
         <div>
             <header className="header">
                 <img alt="Лого" className="header__logo" src={headerLogo}/>
-                <img alt="Меню" className="header__menu" src={headerMenu}/>
+                <div className="header__login">
+                <p className={props.register}>Регистрация</p>
+                <button aria-label={props.label} className={props.className}
+                        type="button">{props.title}</button>
+                </div>
             </header>
         </div>
     );

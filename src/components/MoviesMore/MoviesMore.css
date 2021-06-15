@@ -1,8 +1,23 @@
 .movies-more__button-wrapper {
     display: flex;
     justify-content: center;
-    padding-top: 50px;
-    padding-bottom: 80px;
+
+    padding: 50px 10px 80px 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .movies-more__button-wrapper{
+        padding-right: 30px;
+        padding-left: 30px;
+
+    }
+}
+@media screen and (min-width: 1280px) {
+    .movies-more__button-wrapper{
+        padding-right: 70px;
+        padding-left: 70px;
+
+    }
 }
 
 

@@ -1,6 +1,6 @@
 .page {
-    padding-right: 10px;
-    padding-left: 10px;
+   /* padding-right: 10px;
+    padding-left: 10px;*/
     background-color: #202020;
     margin: 0 auto;
     font-family: 'Inter', Arial, sans-serif;
@@ -11,7 +11,7 @@
 }
 
 
-@media screen and (min-width: 768px) {
+/*@media screen and (min-width: 768px) {
     .page{
         padding-right: 30px;
         padding-left: 30px;
@@ -24,4 +24,4 @@
         padding-left: 70px;
 
     }
-}
+}*/

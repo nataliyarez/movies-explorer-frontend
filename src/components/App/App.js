@@ -1,5 +1,5 @@
 // import '../index.css';
-import Header from '../Header/Header';
+//import Header from '../Header/Header';
 
 // import Main from './Main';
 // import Footer from './Footer';
@@ -8,34 +8,34 @@ import Header from '../Header/Header';
 // import EditProfilePopup from "./EditProfilePopup";
 // import EditAvatarPopup from "./EditAvatarPopup";
 // import AddPlacePopup from "./AddPlacePopup";
-// import React, {useEffect, useState} from "react";
+import React from "react";
+import {Route, Switch} from "react-router-dom";
 
-import  '../../styles/page.css';
-import SearchForm from "../SearchForm/SearchForm";
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import MoviesMore from '../MoviesMore/MoviesMore';
-import Footer from '../Footer/Footer';
-
+import '../../styles/page.css';
+import Movies from '../Movies/Movies';
+import Main from '../Main/Main';
 
 
 function App() {
-  return (
-      <>
-        <div className="page">
+    return (
+        <>
 
-          <Header/>
-          <SearchForm />
-          <MoviesCardList />
-          <MoviesMore/>
-          <Footer/>
+                <Switch>
+                    <Route exact path="/">
+                     <Main />
+                    </Route>
+
+                    <Route  path="/movies">
+                        <Movies />
+                    </Route>
 
 
-        </div>
+                </Switch>
 
 
-      </>
+        </>
 
-  );
+    );
 
 }
 

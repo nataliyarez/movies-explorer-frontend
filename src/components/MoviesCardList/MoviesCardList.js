@@ -104,7 +104,7 @@ function MoviesCardList(){
 
     return (
 <div>
-        <section>
+        <section className="movies-card-list">
             <ul className="elements">
                 {cards.map((card,  i= i++) => {
                     return (<MoviesCard card={card} key={i}/>)

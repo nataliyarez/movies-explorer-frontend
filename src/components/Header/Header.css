@@ -1,7 +1,25 @@
 .header {
     display: flex;
     justify-content: space-between;
+    padding-right: 10px;
+    padding-left: 10px;
 }
+
+@media screen and (min-width: 768px) {
+    .header{
+        padding-right: 30px;
+        padding-left: 30px;
+
+    }
+}
+@media screen and (min-width: 1280px) {
+    .header{
+        padding-right: 70px;
+        padding-left: 70px;
+
+    }
+}
+
 
 .header__logo {
     padding-top: 18px;
@@ -17,17 +35,72 @@
     }
 }
 
-.header__menu {
-    padding-top: 15px;
-    padding-right: 4px;
-    padding-bottom: 16px;
+.header__login {
+    flex-direction: row;
+    display: flex;
+    padding-top: 24px;
+
+}
+
+
+.header__register {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 16px;
+    color: #FFFFFF;
+    padding-right: 14px;
+    margin: 0;
+    padding-top: 5px;
+    visibility: hidden;
+}
+
+.header__register:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.header__register_visible{
+    visibility: visible;
+}
+
+
+.header__menu-button {
     width: 40px;
     height: 43px;
+    background-image: url(../../images/header_icon.svg);
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    box-sizing: content-box;
+    outline: none;
+    transition: opacity ease 600ms;
+    margin-top: -11px;
+    padding: 0;
 }
-@media screen and (min-width: 768px) {
-    .header__menu{
-        width: 44px;
-        height: 44px;
-        padding: 15px 0 15px 0;
-    }
+
+.header__menu-button:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+
+.header__entry-button {
+    background: #3DDC84;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 16px;
+    text-align: center;
+    color: #000000;
+    width: 54px;
+    height: 26px;
+    border-style: none;
+    border-radius: 3px;
+    margin: 0;
+    padding: 0;
+}
+.header__entry-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
 }
