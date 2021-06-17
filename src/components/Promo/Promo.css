@@ -22,6 +22,10 @@
     padding-top: 142px;
     padding-bottom: 180px;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 
 
 
@@ -63,7 +67,7 @@
         font-size: 50px;
         line-height: 58px;
         top:326px;
-        padding-left: 9px;
+       /* padding-left: 9px;*/
     }
 }
 
@@ -72,7 +76,7 @@
 @media screen and (min-width: 1280px) {
     .promo__text{
         top:184px;
-        padding-left: 267px;
+       /* padding-left: 267px; */
     }
 }
 
@@ -81,20 +85,20 @@
     width: 248px;
     height: 248px;
     align-items: center;
-    padding-left: 26px;
+  /*  padding-left: 26px; */
 }
 
 @media screen and (min-width: 768px) {
     .promo__pic{
         width: 320px;
         height: 320px;
-        padding-left: 224px;
+       /* padding-left: 224px; */
     }
 }
 
 @media screen and (min-width: 1280px) {
     .promo__pic{
-        padding-left: 480px;
+      /*  padding-left: 480px;*/
     }
 }
 
