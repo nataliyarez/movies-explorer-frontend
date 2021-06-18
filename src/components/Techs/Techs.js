@@ -9,7 +9,7 @@ function Techs(props) {
         <>
 
             <div>
-                <div className="techs">
+                <div className="techs" id="techs">
                     <h2 className="techs__heading">Технологии</h2>
                     <div className="techs__text-wrapper">
                             <h3 className="techs__title">7 технологий</h3>

@@ -14,14 +14,12 @@ function NavTab(props) {
 
                     <nav>
                         <ul className="nav-tab__links">
-                            <li className="nav-tab__list"><a href="#test" className="nav-tab__link"
+                            <li className="nav-tab__list"><a href="#about-project" className="nav-tab__link"
                                                             >О проекте</a>
                             </li>
-                            <li className="nav-tab__list"><a href="https://github.com/" className="nav-tab__link"
-                                                            target="_blank" rel="noreferrer">Технологии</a>
+                            <li className="nav-tab__list"><a href="#techs" className="nav-tab__link">Технологии</a>
                             </li>
-                            <li className="nav-tab__list"><a href="https://www.facebook.com/" className="nav-tab__link"
-                                                            target="_blank" rel="noreferrer">Студент</a>
+                            <li className="nav-tab__list"><a href="#about-me" className="nav-tab__link">Студент</a>
                             </li>
                         </ul>
                     </nav>

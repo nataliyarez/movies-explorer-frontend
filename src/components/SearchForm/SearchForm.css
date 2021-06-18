@@ -23,7 +23,7 @@
 }
 
 
-.form {
+.search-form {
     width: 300px;
     height: 72px;
    background: #222222;
@@ -35,7 +35,7 @@ position: relative;
 
 }
 
-.form__text {
+.search-form__text {
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
@@ -52,7 +52,7 @@ position: relative;
 
 }
 
-.form__button {
+.search-form__button {
     background-image: url(../../images/search_find.svg);
     width: 34px;
     height: 34px;

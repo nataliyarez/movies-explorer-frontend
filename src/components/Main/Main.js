@@ -6,15 +6,16 @@ import AboutProject from "../AboutProject/AboutProject";
 import Techs from "../Techs/Techs";
 import AboutMe from "../AboutMe/AboutMe";
 import Portfolio from "../Portfolio/Portfolio";
+import React from "react";
 
 
-function Main(props) {
+function Main({ signOut, signMain, signRegister }) {
 
     return (
         <>
             <div className="page">
                 <main className="content">
-                    <Promo />
+                    <Promo signOut={signOut} signMain={signMain} signRegister={signRegister}/>
                     <NavTab />
                     <AboutProject />
                     <Techs />

@@ -9,7 +9,7 @@ function AboutProject(props) {
         <>
 
             <div>
-                <div className="about-project">
+                <div className="about-project" id="about-project">
                     <h2 className="about-project__heading">О проекте</h2>
                     <div className="about-project__text-wrapper">
                         <div className="about-project__column">

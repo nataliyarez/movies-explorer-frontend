@@ -7,10 +7,10 @@ function SearchForm() {
     return (
         <div>
             <div className="search">
-                <form className="form">
-                    <input className="form__text" id="name" name="name" type="text" required minLength="2"
+                <form className="search-form">
+                    <input className="search-form__text" id="name" name="name" type="text" required minLength="2"
                            placeholder="Фильм"/>
-                    <button className="form__button" type="submit"></button>
+                    <button className="search-form__button" type="submit"></button>
                 </form>
                 <div className="search__switch-wrapper">
                     <label className="search__switch">

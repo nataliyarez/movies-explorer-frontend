@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/body.css';
+import './styles/html.css';
 import './fonts/InterWeb/inter.css'
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
