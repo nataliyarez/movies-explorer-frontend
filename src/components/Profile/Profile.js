@@ -5,9 +5,9 @@ import '../Profile/Profile.css';
 
 
 
-function Profile () {
+function Profile ({  signMain, signProfile, signMovies, signSavedMovies}) {
 
-
+    const moviesPage = true;
 
 
 
@@ -15,7 +15,7 @@ function Profile () {
         <div className="page">
 
             <div className="profile">
-                <Header register='header__register' className='header__menu-button' label='Меню'/>
+                <Header moviesPage={moviesPage} signMain={signMain} signProfile={signProfile} signMovies={signMovies} signSavedMovies={signSavedMovies}/>
                 <div className="auth">
                 <div className="auth__wrapper auth__wrapper_profile">
 
@@ -37,7 +37,7 @@ function Profile () {
                 </div>
                 <div className="auth__link-wrapper auth__link-wrapper_profile">
                     <p className="auth__link auth__link_white">Редактировать</p>
-                    <p className="auth__link auth__link_red">Выйти из аккаунта</p>
+                    <p onClick={signMain} className="auth__link auth__link_red">Выйти из аккаунта</p>
                 </div>
             </div>
             </div>

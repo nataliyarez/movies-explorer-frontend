@@ -1,14 +1,13 @@
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesMore from "../MoviesMore/MoviesMore";
 import Footer from "../Footer/Footer";
 import Navigation from "../Navigation/Navigation"
 import '../../styles/page.css';
 import React, { useState} from "react";
 
 
-function Movies({  signMain, signProfile, signMovies, signSavedMovies}) {
+function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
     const moviesPage = true;
 
     const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
@@ -28,14 +27,13 @@ function Movies({  signMain, signProfile, signMovies, signSavedMovies}) {
 
             <div className="page">
                 <main className="content">
-                    <Header  signProfile={signProfile} onMenu={handleMenuClick} signMain={signMain}  moviesPage={moviesPage} signSavedMovies={signSavedMovies}/>
+                    <Header moviesPage={moviesPage} onMenu={handleMenuClick} signMain={signMain} signMovies={signMovies} signSavedMovies={signSavedMovies} signProfile={signProfile} />
                     <SearchForm/>
-                    <MoviesCardList savedMovies='false'/>
-                    <MoviesMore/>
+                    <MoviesCardList savedMovies='true'/>
                     <Footer/>
                 </main>
             </div>
-<Navigation signProfile={signProfile} signMain={signMain} signSavedMovies={signSavedMovies} signMovies={signMovies} onClose={closePopup} isOpen={isProfilePopupOpen}/>
+            <Navigation signProfile={signProfile} signMain={signMain} signMovies={signMovies} onClose={closePopup} isOpen={isProfilePopupOpen}/>
         </>
 
     );
@@ -43,4 +41,4 @@ function Movies({  signMain, signProfile, signMovies, signSavedMovies}) {
 
 }
 
-export default Movies;
+export default SavedMovies;

@@ -8,7 +8,7 @@ function Navigation(props) {
     if (props.isOpen===true){
         visible = 'popup_visible'
     }
-    console.log('dskgjkdfgjkldfg',props.isOpen)
+
     return (
 
         <div className={`popup ${visible}`} >
@@ -17,7 +17,7 @@ function Navigation(props) {
                <div  className="popup__text-wrapper">
                 <p onClick={props.signMain} className="popup__text">Главная</p>
                 <p onClick={props.signMovies}  className="popup__text">Фильмы</p>
-                <p className="popup__text">Сохранённые фильмы</p>
+                <p  onClick={props.signSavedMovies} className="popup__text">Сохранённые фильмы</p>
                </div>
                 <div className="popup__account">
                     <p onClick={props.signProfile} className="popup__account-text">Аккаунт</p>

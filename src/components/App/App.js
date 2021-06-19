@@ -9,6 +9,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 import Preloader from '../Preloader/Preloader'
+import SavedMovies from '../SavedMovies/SavedMovies'
 
 
 function App() {
@@ -33,6 +34,12 @@ function App() {
 
     function signMovies() {
         history.push('/movies');
+
+    }
+
+    function signSavedMovies() {
+        history.push('/saved-movies');
+
     }
 
     return (
@@ -40,11 +47,11 @@ function App() {
 
                 <Switch>
                     <Route exact path="/">
-                     <Main signOut={signOut} signMain={signMain} signRegister={signRegister}/>
+                     <Main signOut={signOut} signMain={signMain} signRegister={signRegister} />
                     </Route>
 
                     <Route  path="/movies">
-                        <Movies signMain={signMain} signProfile={signProfile} signMovies={signMovies} />
+                        <Movies signMain={signMain} signProfile={signProfile} signMovies={signMovies} signSavedMovies={signSavedMovies}/>
                     </Route>
 
                     <Route  path="/signup">
@@ -56,11 +63,14 @@ function App() {
                     </Route>
 
                     <Route  path="/profile">
-                        <Profile />
+                        <Profile signProfile={signProfile} signMain={signMain} signMovies={signMovies} signSavedMovies={signSavedMovies} />
                     </Route>
 
                     <Route  path="/pre">
                         <Preloader />
+                    </Route>
+                    <Route path="/saved-movies">
+                        <SavedMovies signProfile={signProfile} signMain={signMain} signMovies={signMovies} signSavedMovies={signSavedMovies}/>
                     </Route>
 
                 </Switch>

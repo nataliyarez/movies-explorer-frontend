@@ -60,6 +60,7 @@
     margin: 0;
     padding-top: 5px;
     visibility: hidden;
+    display: none;
 }
 
 .header__register:hover {
@@ -69,6 +70,7 @@
 
 .header__register_visible{
     visibility: visible;
+    display: inline;
 }
 
 
@@ -84,11 +86,25 @@
     transition: opacity ease 600ms;
     margin-top: -11px;
     padding: 0;
+    visibility: hidden;
+    display: none;
 }
 
 .header__menu-button:hover {
     cursor: pointer;
     opacity: 0.5;
+}
+
+.header__menu-button_visible {
+    visibility: visible;
+    display: inline;
+}
+
+@media screen and (min-width: 1280px) {
+    .header__menu-button_visible{
+        visibility: hidden;
+        display: none;
+    }
 }
 
 
@@ -106,8 +122,116 @@
     border-radius: 3px;
     margin: 0;
     padding: 0;
+    visibility: hidden;
+    display: none;
 }
 .header__entry-button:hover {
     opacity: 0.8;
     cursor: pointer;
+}
+.header__entry-button_visible {
+    visibility: visible;
+    display: inline;
+}
+
+@media screen and (min-width: 1280px) {
+.header__movies-wrapper {
+    display: flex;
+    flex-direction: row;
+    padding-right: 746px;
+}}
+
+.header__movies{
+    visibility: hidden;
+    display: none;
+}
+
+.header__movies:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+@media screen and (min-width: 1280px) {
+    .header__movies_visible{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        color: #FFFFFF;
+        visibility: visible;
+        display: inline;
+        margin: 0;
+        padding-right: 16px;
+    }
+}
+
+
+.header__saved-movies{
+    visibility: hidden;
+    display: none;
+}
+
+.header__saved-movies:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+@media screen and (min-width: 1280px) {
+    .header__saved-movies_visible{
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 18px;
+        color: #FFFFFF;
+        visibility: visible;
+        display: inline;
+        margin: 0;
+    }
+}
+
+.header__account {
+    visibility: hidden;
+    display: none;
+}
+
+
+@media screen and (min-width: 1280px){
+    .header__account_visible {
+        display: flex;
+        flex-direction: row;
+        transition: opacity 0.3s ease;
+        visibility: visible;
+
+
+    }
+}
+
+.header__account:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.header__account-text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 22px;
+    color: #FFFFFF;
+    padding-right: 7px;
+    margin: 0;
+}
+
+.header__account-img-wrapper {
+    background: #313131;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    position: relative;
+}
+
+.header__account-img {
+    width: 11px;
+    height: 11px;
+    position: absolute;
+    left: 8px;
+    top: 6px;
+
 }

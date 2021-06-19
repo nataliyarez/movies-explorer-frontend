@@ -97,7 +97,7 @@ const cards = [
     }
 ];
 
-function MoviesCardList(){
+function MoviesCardList({savedMovies}){
 
 
 
@@ -107,7 +107,7 @@ function MoviesCardList(){
         <section className="movies-card-list">
             <ul className="elements">
                 {cards.map((card,  i= i++) => {
-                    return (<MoviesCard card={card} key={i}/>)
+                    return (<MoviesCard savedMovies={savedMovies} card={card} key={i}/>)
                 })}
             </ul>
         </section>

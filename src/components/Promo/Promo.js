@@ -12,9 +12,7 @@ function Promo({signOut, signMain, signRegister}) {
 
             <div>
                 <div className="promo">
-                    <Header signOut={signOut} signMain={signMain} signRegister={signRegister}
-                            register='header__register header__register_visible' className='header__entry-button'
-                            title='Войти' label='Войти'/>
+                    <Header signOut={signOut} signMain={signMain} signRegister={signRegister} />
                     <div className="promo__info">
                         <h1 className="promo__text">Учебный проект студента факультета Веб&#8209;разработки.</h1>
                         <img alt="Картинка" className="promo__pic" src={promoPic}/>

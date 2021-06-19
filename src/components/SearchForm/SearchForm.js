@@ -7,6 +7,7 @@ function SearchForm() {
     return (
         <div>
             <div className="search">
+                <div className="search-wrapper">
                 <form className="search-form">
                     <input className="search-form__text" id="name" name="name" type="text" required minLength="2"
                            placeholder="Фильм"/>
@@ -19,6 +20,7 @@ function SearchForm() {
                     </label>
                     <p className="search__text">Короткометражки</p>
                 </div>
+            </div>
             </div>
 
         </div>

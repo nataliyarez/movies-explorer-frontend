@@ -9,13 +9,15 @@ import Portfolio from "../Portfolio/Portfolio";
 import React from "react";
 
 
-function Main({ signOut, signMain, signRegister }) {
+function Main({ signOut, signMain, signRegister, signSavedMovies }) {
+
+
 
     return (
         <>
             <div className="page">
                 <main className="content">
-                    <Promo signOut={signOut} signMain={signMain} signRegister={signRegister}/>
+                    <Promo signOut={signOut} signMain={signMain} signRegister={signRegister} />
                     <NavTab />
                     <AboutProject />
                     <Techs />
