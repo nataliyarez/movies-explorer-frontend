@@ -11,6 +11,7 @@ function Techs(props) {
             <div>
                 <div className="techs" id="techs">
                     <h2 className="techs__heading">Технологии</h2>
+                    <div className="techs__wrapper">
                     <div className="techs__text-wrapper">
                             <h3 className="techs__title">7 технологий</h3>
                             <p className="techs__text">На курсе веб-разработки мы освоили технологии, которые применили
@@ -28,6 +29,7 @@ function Techs(props) {
 
                 </div>
 
+            </div>
             </div>
 
         </>

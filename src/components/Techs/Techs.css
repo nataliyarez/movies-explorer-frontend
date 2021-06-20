@@ -27,6 +27,8 @@
 
 
 .techs__heading {
+    border-bottom: 1px solid;
+    border-color: #DADADA;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -53,9 +55,15 @@
     }
 }
 
+
+.techs__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .techs__text-wrapper {
-    border-top: 1px solid;
-    border-color: #DADADA;
     display: flex;
     flex-direction: column;
     justify-content: center;

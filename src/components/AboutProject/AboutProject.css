@@ -109,16 +109,25 @@
 .about-project__strip-wrapper {
     display: flex;
     flex-direction: row;
+    justify-content: center;
     padding-top: 60px;
-    padding-bottom: 93px;
+    padding-bottom: 70px;
 }
 
 @media screen and (min-width: 768px) {
     .about-project__strip-wrapper {
         padding-top: 93px;
-        padding-bottom: 121px;
+        padding-bottom: 90px;
     }
 }
+
+@media screen and (min-width: 1280px) {
+    .about-project__strip-wrapper {
+        padding-top: 110px;
+        padding-bottom: 110px;
+    }
+}
+
 
 
 .about-project__strip-text{

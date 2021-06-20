@@ -1,11 +1,12 @@
 import './MoviesCard.css';
 
-
+import React, {useState} from "react";
 
 function MoviesCard(props) {
-
+    const [isLiked, setIsLiked] = useState(false);
     let visible;
     let visibleCross;
+    let visibleLiked;
     if (props.savedMovies==='true'){
         visibleCross = 'element__cross-wrapper_visible'
         visible = 'element__likes-wrapper'
@@ -14,6 +15,21 @@ function MoviesCard(props) {
         visibleCross = 'element__cross-wrapper'
     }
 
+if (isLiked===true) {
+    visibleLiked = 'element__like_active'
+} else {
+    visibleLiked = 'element__like'
+}
+
+
+    const handleLikeClick = () => {
+    if (isLiked===false){
+        setIsLiked(true)
+    } else {
+        setIsLiked(false)
+    }
+
+    }
 
 return (
 
@@ -27,7 +43,7 @@ return (
                  <h4 className="element__text-duration">{props.card.duration}</h4>
                      </div>
                  <div className={`element__likes-wrapper ${visible}`}>
-                <button aria-label="сердечко" className="element__like"
+                <button onClick={handleLikeClick} aria-label="сердечко" className={`element__like ${visibleLiked}`}
                         type="button"></button>
                  </div>
                  <div className={`element__cross-wrapper ${visibleCross}`}>
