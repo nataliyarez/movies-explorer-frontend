@@ -1,6 +1,7 @@
 .element {
     position: relative;
     width: 300px;
+    justify-self: center;
 }
 
 @media screen and (min-width: 768px) {
