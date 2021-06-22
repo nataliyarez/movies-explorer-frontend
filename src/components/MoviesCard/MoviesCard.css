@@ -1,0 +1,163 @@
+.element {
+    position: relative;
+    width: 300px;
+    justify-self: center;
+}
+
+@media screen and (min-width: 768px) {
+    .element {
+        width: 339px;
+    }
+}
+
+
+@media screen and (min-width: 1280px) {
+    .element {
+        width: 364px;
+    }
+}
+
+.element__info-wrapper {
+    background: #222222;
+    width: 300px;
+    border-radius: 0 0 6px 6px;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+
+@media screen and (min-width: 768px) {
+    .element__info-wrapper {
+        width: 339px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .element__info-wrapper {
+        width: 364px;
+    }
+}
+
+
+.element__text-wrapper {
+    padding-left: 14px;
+}
+
+.element__text-name {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FFFFFF;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 240px;
+    padding-right: 16px;
+}
+
+.element__text-duration{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #8B8B8B;
+    margin: 0;
+    padding-top: 14px;
+}
+
+.element__likes-wrapper {
+    display: none;
+    flex-direction:column;
+    align-items: center;
+    padding-top: 5px;
+    visibility: hidden;
+
+}
+
+.element__likes-wrapper_visible {
+    visibility: visible;
+    display: flex;
+}
+
+
+.element__like {
+    width: 21px;
+    height: 19px;
+    /* align-self: center; */
+background-image: url(../../images/elements_like.svg);
+ background-color: transparent;
+ border: none;
+ background-repeat: no-repeat;
+ box-sizing: content-box;
+ outline: none;
+ transition: opacity ease 600ms;
+ padding-right: 14px;
+}
+
+.element__like:hover {
+ cursor: pointer;
+ opacity: 0.5;
+}
+
+.element__like_active {
+ background-image: url(../../images/elements_like_aktive.svg);
+}
+
+.element__cross-wrapper {
+
+    flex-direction:column;
+    align-items: center;
+    padding-top: 3px;
+    visibility: hidden;
+    display: none;
+}
+.element__cross-wrapper_visible{
+    visibility: visible;
+    display: flex;
+
+}
+
+.element__cross {
+    width: 7px;
+    height: 7px;
+    /* align-self: center; */
+    background-image: url(../../images/element_cross.svg);
+    background-color: transparent;
+    border: none;
+    background-repeat: no-repeat;
+    box-sizing: content-box;
+    outline: none;
+    transition: opacity ease 600ms;
+    padding-right: 14px;
+}
+
+.element__cross:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+.element__image {
+ width: 300px;
+ height: 168px;
+ display: block;
+ border-radius: 6px 6px 0px 0px;
+}
+
+@media screen and (min-width: 768px) {
+    .element__image {
+        width: 339px;
+        height: 190px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .element__image {
+        width: 364px;
+        height: 203px;
+    }
+}
