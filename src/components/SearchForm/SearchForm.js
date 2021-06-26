@@ -1,15 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import '../SearchForm/SearchForm.css';
 import '../../fonts/InterWeb/inter.css'
 
 
-function SearchForm() {
+function SearchForm({searchCards}) {
+
+
+    const [request, setRequest] = useState('');
+
+    function handleSubmit(e) {
+        e.preventDefault();
+
+        searchCards(request);
+
+    }
+    function handleNameChange(evt) {
+        setRequest(evt.target.value);
+    }
+
     return (
         <div>
             <div className="search">
                 <div className="search-wrapper">
-                <form className="search-form">
-                    <input className="search-form__text" id="name" name="name" type="text" required minLength="2"
+                <form onSubmit={handleSubmit} className="search-form">
+                    <input value={request}  onChange={handleNameChange} className="search-form__text" id="name" name="name" type="text" required minLength="1"
                            placeholder="Фильм"/>
                     <button className="search-form__button" type="submit"></button>
                 </form>

@@ -9,7 +9,7 @@ import Portfolio from "../Portfolio/Portfolio";
 import React from "react";
 
 
-function Main({ signOut, signMain, signRegister, signSavedMovies }) {
+function Main({ signOut, signMain, signRegister, singHeader }) {
 
 
 
@@ -17,7 +17,7 @@ function Main({ signOut, signMain, signRegister, signSavedMovies }) {
         <>
             <div className="page">
                 <main className="content">
-                    <Promo signOut={signOut} signMain={signMain} signRegister={signRegister} />
+                    <Promo singHeader={singHeader} signOut={signOut} signMain={signMain} signRegister={signRegister} />
                     <NavTab />
                     <AboutProject />
                     <Techs />

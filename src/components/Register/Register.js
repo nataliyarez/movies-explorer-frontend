@@ -5,10 +5,13 @@ import registerLogo from "../../images/header_logo.svg";
 
 
 
-function Register ({ signOut, signMain }) {
+function Register ({ signOut, signMain, onChange, userData, onRegister }) {
 
 
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onRegister();
+    }
 
 
     return (
@@ -18,16 +21,16 @@ function Register ({ signOut, signMain }) {
                 <div className="auth__wrapper">
                 <img onClick={signMain} alt="Лого" className="auth__logo" src={registerLogo}/>
                 <h3 className="auth__text">Добро пожаловать!</h3>
-                <form  className="form form__auth" noValidate>
+                <form onSubmit={handleSubmit} className="form form__auth" noValidate>
                     <div className="form__input-wrapper">
                         <p className="form__auth-text">Имя</p>
-                        <input className="form__input form__input_auth"  name="name" type="email" required minLength="2" maxLength="40" />
+                        <input value={userData.name} onChange={onChange} className="form__input form__input_auth"  name="name" type="email" required minLength="2" maxLength="40" />
                         <span id="name-error" className="error"></span>
                         <p className="form__auth-text">E-mail</p>
-                        <input className="form__input form__input_auth"  name="email" type="email" required minLength="2" maxLength="40"  />
+                        <input value={userData.email} onChange={onChange} className="form__input form__input_auth"  name="email" type="email" required minLength="2" maxLength="40"  />
                         <span id="email-error" className="error"></span>
                         <p className="form__auth-text">Пароль</p>
-                        <input  className="form__input form__input_auth"  name="password" type="password" required minLength="2" maxLength="200" />
+                        <input  value={userData.password} onChange={onChange} className="form__input form__input_auth"  name="password" type="password" required minLength="2" maxLength="200" />
                         <span id="password-error" className="error"></span>
                     </div>
                     <button  className="form__button form__button_auth" type="submit">

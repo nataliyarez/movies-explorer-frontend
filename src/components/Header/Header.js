@@ -27,6 +27,9 @@ function Header(props) {
 
     }
 
+
+
+
     return (
         <div>
             <header className="header">
@@ -37,7 +40,7 @@ function Header(props) {
                     <p onClick={props.signSavedMovies} className={`header__saved-movies ${visibleSavedMovies}`}>Сохранённые фильмы</p>
                 </div>
                 <p onClick={props.signRegister} className={`header__register ${visibleRegister}`}>Регистрация</p>
-                <button onClick={props.signOut} aria-label='войти' className={`header__entry-button ${visibleEntry}`}
+                <button onClick={props.singHeader} aria-label='войти' className={`header__entry-button ${visibleEntry}`}
                         type="button">Войти</button>
                     <button onClick={props.onMenu} onSubmit={handleSubmit}  aria-label='меню' className={`header__menu-button ${visibleMenu}`}
                             type="button"></button>

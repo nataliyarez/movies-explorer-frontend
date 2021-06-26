@@ -5,10 +5,13 @@ import registerLogo from "../../images/header_logo.svg";
 
 
 
-function Login ({ signOut, signMain }) {
+function Login ({onLogin, signOut, signMain, userData, onChange }) {
 
 
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onLogin();
+    }
 
 
     return (
@@ -18,17 +21,17 @@ function Login ({ signOut, signMain }) {
                 <div className="auth__wrapper">
                     <img onClick={signMain} alt="Лого"  className="auth__logo" src={registerLogo}/>
                     <h3 className="auth__text">Рады видеть!</h3>
-                    <form  className="form form__auth" noValidate>
+                    <form onSubmit={handleSubmit} className="form form__auth" noValidate>
                         <div className="form__input-wrapper">
                             <p className="form__auth-text">E-mail</p>
-                            <input className="form__input form__input_auth"  name="email" type="email" required minLength="2" maxLength="40"  />
+                            <input value={userData.email} onChange={onChange} className="form__input form__input_auth"  name="email" type="email" required minLength="2" maxLength="40"  />
                             <span id="email-error" className="error"></span>
                             <p className="form__auth-text">Пароль</p>
-                            <input  className="form__input form__input_auth"  name="password" type="password" required minLength="2" maxLength="200" />
+                            <input value={userData.password} onChange={onChange} className="form__input form__input_auth"  name="password" type="password" required minLength="2" maxLength="200" />
                             <span id="password-error" className="error"></span>
                         </div>
                         <button  className="form__button form__button_auth" type="submit">
-                            Зарегистрироваться
+                            Войти
                         </button>
                     </form>
                 </div>
