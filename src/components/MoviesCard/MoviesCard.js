@@ -1,5 +1,6 @@
 import './MoviesCard.css';
 import React, {useState} from "react";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function getHours(time) {
     let hours = Math.trunc(time/60);
@@ -8,10 +9,11 @@ function getHours(time) {
 }
 
 function MoviesCard(props) {
-    const [isLiked, setIsLiked] = useState(false);
+    const currentUser = React.useContext(CurrentUserContext);
+
     let visible;
     let visibleCross;
-    let visibleLiked;
+
     if (props.savedMovies==='true'){
         visibleCross = 'element__cross-wrapper_visible'
         visible = 'element__likes-wrapper'
@@ -20,20 +22,18 @@ function MoviesCard(props) {
         visibleCross = 'element__cross-wrapper'
     }
 
-if (isLiked===true) {
-    visibleLiked = 'element__like_active'
-} else {
-    visibleLiked = 'element__like'
-}
 
+   // console.log('что утт',props.myCard.[0].owner)
+
+    const isSaved = props.myCard.some(i => i === currentUser._id);
+//console.log('жопа',isSaved)
+
+    const cardLikeButtonClassName = (
+        `element__like ${isSaved ? 'element__like_active' : 'element__like'}`
+    );
 
     const handleLikeClick = () => {
-    if (isLiked===false){
-        setIsLiked(true)
-    } else {
-        setIsLiked(false)
-    }
-
+        props.onCardLike(props.card);
     }
 
 
@@ -45,14 +45,14 @@ return (
 
     <li className="element">
         <a href={props.card.trailerLink}  target="_blank" rel="noreferrer"> <img   alt={props.card.nameRU} className="element__image"
-                                      src={`https://api.nomoreparties.co${props.card.image}`}/> </a>
+                                      src={props.card.image}/> </a>
              <div className="element__info-wrapper">
                  <div className="element__text-wrapper">
             <h3 className="element__text-name">{props.card.nameRU}</h3>
                  <h4 className="element__text-duration">{time}</h4>
                      </div>
                  <div className={`element__likes-wrapper ${visible}`}>
-                <button onClick={handleLikeClick} aria-label="сердечко" className={`element__like ${visibleLiked}`}
+                <button onClick={handleLikeClick} aria-label="сердечко" className={cardLikeButtonClassName}
                         type="button"></button>
                  </div>
                  <div className={`element__cross-wrapper ${visibleCross}`}>

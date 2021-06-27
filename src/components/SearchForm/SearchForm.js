@@ -7,6 +7,7 @@ function SearchForm({searchCards}) {
 
 
     const [request, setRequest] = useState('');
+    const [checkbox, setCheckbox] = useState('');
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -16,6 +17,10 @@ function SearchForm({searchCards}) {
     }
     function handleNameChange(evt) {
         setRequest(evt.target.value);
+    }
+    function handleCheckboxChange (evt){
+        setCheckbox(evt.target.checked);
+        searchCards(request, evt.target.checked);
     }
 
     return (
@@ -29,7 +34,7 @@ function SearchForm({searchCards}) {
                 </form>
                 <div className="search__switch-wrapper">
                     <label className="search__switch">
-                        <input className="search__checkbox" type="checkbox"/>
+                        <input checked={checkbox} onChange={handleCheckboxChange} className="search__checkbox" type="checkbox"/>
                         <span className="search__slider"></span>
                     </label>
                     <p className="search__text">Короткометражки</p>

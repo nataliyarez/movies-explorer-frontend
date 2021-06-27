@@ -1,0 +1,54 @@
+.movies-error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+
+@media screen and (min-width: 768px) {
+    .movies-error{
+        padding-right: 30px;
+        padding-left: 30px;
+
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .movies-error{
+        padding-right: 70px;
+        padding-left: 70px;
+
+    }
+}
+
+.movies-error__text {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 16px;
+    color: #FFFFFF;
+    visibility: hidden;
+    display: none
+}
+
+
+@media screen and (min-width: 768px) {
+    .movies-error__text{
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+
+.movies-error__text_error {
+    visibility: visible;
+    display: block;
+}
+
+.movies-error__text_not-found {
+    visibility: visible;
+    display: block;
+}

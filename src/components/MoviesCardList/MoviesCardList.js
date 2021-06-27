@@ -4,15 +4,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 
 
-function MoviesCardList({savedMovies, numberOfRender, cardsMovies, yes}) {
-
-    let hiddenCardList;
-    if (yes === true){
-        hiddenCardList = 'movies-card-list movies-card-list_visible'
-    } else {
-        hiddenCardList = 'movies-card-list'
-    }
-
+function MoviesCardList({savedMovies, numberOfRender, cardsMovies, onCardLike, myCard}) {
 
 
     return (
@@ -20,7 +12,7 @@ function MoviesCardList({savedMovies, numberOfRender, cardsMovies, yes}) {
             <section className="movies-card-list">
                 <ul className="elements">
                     {cardsMovies.slice(0, numberOfRender).map((card) => {
-                        return (<MoviesCard savedMovies={savedMovies} card={card} key={card.id}/>)
+                        return (<MoviesCard myCard={myCard} onCardLike={onCardLike} savedMovies={savedMovies} card={card} key={card.id}/>)
                     })}
                 </ul>
             </section>

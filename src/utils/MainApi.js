@@ -10,11 +10,11 @@ class Api {
         }
 
         // если ошибка, отклоняем промис
-        return Promise.reject(`Ошибка: ${res.status}`);
+        res.json().then(r => Promise.reject(r));
     }
 
     getInitialCards() {//закбираем карточки с сервера
-        return  fetch(this._baseUrl+'/cards',{
+        return  fetch(this._baseUrl+'/movies',{
             method: 'GET',
             headers: {
                 Authorization: `${localStorage.getItem('token')}`,
@@ -67,7 +67,7 @@ class Api {
             .then(this._getResponseData);
     }
     deleteCard (cardId){ // удаляем карточку
-        return  fetch(this._baseUrl+'/cards/'+cardId, {
+        return  fetch(this._baseUrl+'/movies/'+cardId, {
             method: 'DELETE',
             headers: {
                 Authorization: `${localStorage.getItem('token')}`,
@@ -91,27 +91,31 @@ class Api {
             .then(this._getResponseData);
 
     }
-    likeCard (cardId, isLike) { // лайкам и дизлайкам карточку
-        if (isLike === false) {
-            return  fetch(this._baseUrl+'/cards/'+cardId + '/likes/', {
-                method: 'PUT',
+    likeCard (card) { // лайкам и дизлайкам карточку
+console.log('r cthdths',card);
+            return  fetch(this._baseUrl+'/movies/', {
+                method: 'POST',
                 headers: {
                     Authorization: `${localStorage.getItem('token')}`,
                     'Content-Type': 'application/json'
-                }
+                },
+                body: JSON.stringify({
+                    country: card.country,
+                    director: card.director,
+                    duration: card.duration,
+                    year: card.year,
+                    description: card.description,
+                    image: card.image,
+                    trailer: card.trailer,
+                    thumbnail: card.thumbnail,
+                    movieId: card.id,
+                    nameRU: card.nameRU,
+                    nameEN: card.nameEN,
+        })
             })
                 .then(this._getResponseData);
 
-        } else {
-            return  fetch(this._baseUrl+'/cards/'+cardId + '/likes/', {
-                method: 'DELETE',
-                headers: {
-                    Authorization: `${localStorage.getItem('token')}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(this._getResponseData);
-        }
+
 
 
     }

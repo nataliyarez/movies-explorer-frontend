@@ -1,14 +1,9 @@
 import React from 'react'
 import './Preloader.css'
 
-const Preloader = ({preloaderVisible}) => {
+const Preloader = () => {
 
-    let hiddenPreloader;
-    if (preloaderVisible === true){
-        hiddenPreloader = 'preloader preloader_visible'
-    } else {
-        hiddenPreloader = 'preloader'
-    }
+
     return (
         <div className='preloader'>
             <div className="preloader__container">
