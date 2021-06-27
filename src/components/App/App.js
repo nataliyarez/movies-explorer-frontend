@@ -24,6 +24,7 @@ function App() {
     const [isInfoTooltip, setInfoTooltip] = useState(false);
     const [userDataLogin, setUserDataLogin] = useState({password: '', email: ''});
     const [userDataRegister, setUserDataRegister] = useState({name: '', password: '', email: ''});
+   
 
 
     const history = useHistory();
@@ -49,6 +50,8 @@ function App() {
             .catch(err => console.log(err))
 
     }, [])
+
+
 
 
     const handleAuthorizeUser = () => {

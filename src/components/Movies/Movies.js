@@ -10,6 +10,7 @@ import {apiMovies} from "../../utils/MoviesApi";
 import {apiMain} from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
 import MoviesError from "../MoviesError/MoviesError";
+import filter from "../Filter/Filter";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 
@@ -110,60 +111,42 @@ function Movies({signMain, signProfile, signMovies, signSavedMovies, isLoggedIn,
 
             const [filterValues, setFilterValues] = useState(undefined);
 
-    function searchCards(request, chooseShortMovies) {
-        if (chooseShortMovies === true && request !== '') {
-
-            const filterValues = (name) => {
-                return cardsMovies.filter(data => {
-                    return data.nameRU.toLowerCase().indexOf(name.toLowerCase()) > -1;
-                });
-            }
-            const arrayMovies = filterValues(request).filter(e => e.duration <= 40);
-            setFilterValues(arrayMovies);
-        } else if (request !== '') {
-            const filterValues = (name) => {
-                return cardsMovies.filter(data => {
-                    return data.nameRU.toLowerCase().indexOf(name.toLowerCase()) > -1;
-                });
-            }
-            setFilterValues(filterValues(request));
-        }
-
-    }
 
 
+function searchCards (request, chooseShortMovies) {
+    setFilterValues(filter(request, chooseShortMovies, cardsMovies));
+}
 
 
     function handleCardLike(card) {
 
-        console.log(' тут', cardsMoviesSave[0].owner)
-        console.log(' жопа', cardsMoviesSave)
-        console.log(' пиздец', currentUser)
+       if (cardsMoviesSave=== undefined){
+           apiMain.likeCard(card)
+               .then((newCard) => {
+                   setCardsMoviesSave([newCard]);
+               })
+               .catch(err => console.log(err));
+       } else {
+           const ownerCards = cardsMoviesSave.filter(e => e.owner === currentUser._id);
+           const isLiked = ownerCards.find(i => i.movieId === card.id);
 
-
-        const isLiked = cardsMoviesSave.find(i => i === cardsMovies.id);
-        console.log('что тут', isLiked)
-        if (isLiked === false){
-            apiMain.likeCard(card)
-                .then((newCard) => {
-                    console.log('сохраняю',newCard)
-                    setCardsMoviesSave((state) => state.map((c) => c._id === card._id ? formatCardMovies(newCard) : c));
-                })
-                .catch(err => console.log(err));
-        } else if (isLiked === true){
-            apiMain.deleteCard(card.id)
-
-                .then(() => {
-                    console.log('удаляю',)
-                    function deleteCard (value){
-                        return value._id !== card._id;
-                    }
-                    setCardsMovies(cardsMovies.filter(deleteCard));
-
-                })
-                .catch(err => console.log(err));
-        }
-
+           if (isLiked === undefined) {
+               apiMain.likeCard(card)
+                   .then((newCard) => {
+                       setCardsMoviesSave([newCard, ...cardsMoviesSave]);
+                   })
+                   .catch(err => console.log(err));
+           } else {
+               apiMain.deleteCard(isLiked._id)
+                   .then(() => {
+                       function deleteCard(value) {
+                           return value._id !== isLiked._id;
+                       }
+                       setCardsMoviesSave(cardsMoviesSave.filter(deleteCard));
+                   })
+                   .catch(err => console.log(err));
+           }
+       }
     }
 
 

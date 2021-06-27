@@ -23,20 +23,28 @@ function MoviesCard(props) {
     }
 
 
-   // console.log('что утт',props.myCard.[0].owner)
+    let cardLikeButtonClassName;
 
-    const isSaved = props.myCard.some(i => i === currentUser._id);
-//console.log('жопа',isSaved)
-
-    const cardLikeButtonClassName = (
-        `element__like ${isSaved ? 'element__like_active' : 'element__like'}`
-    );
+    if (props.myCard===undefined){
+        cardLikeButtonClassName = 'element__like'
+    } else {
+        const ownerCards = props.myCard.filter(e => e.owner === currentUser._id);
+        const isLiked = ownerCards.find(i => i.movieId === props.card.id);
+        if (isLiked === undefined) {
+            cardLikeButtonClassName = 'element__like'
+        } else {
+            cardLikeButtonClassName = 'element__like element__like_active'
+        }
+    }
 
     const handleLikeClick = () => {
         props.onCardLike(props.card);
     }
 
-
+    const handleDeleteClick = () => {
+        props.onCardDelete(props.card);
+        console.log('карточка', props.card)
+    }
    const time = getHours(props.card.duration);
 
 
@@ -56,7 +64,7 @@ return (
                         type="button"></button>
                  </div>
                  <div className={`element__cross-wrapper ${visibleCross}`}>
-                     <button aria-label="крестик" className="element__cross"
+                     <button onClick={handleDeleteClick} aria-label="крестик" className="element__cross"
                              type="button"></button>
                  </div>
         </div>
