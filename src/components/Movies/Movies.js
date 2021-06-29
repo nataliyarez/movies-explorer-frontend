@@ -74,7 +74,7 @@ function Movies({signMain, signProfile, signMovies, signSavedMovies, isLoggedIn,
 
     function formatCardMovies(item) {
         return {
-            id: item.id,
+            _id: item.id,
             nameRU: item.nameRU,
             nameEN: item.nameEN,
             director: item.director,
@@ -91,6 +91,7 @@ function Movies({signMain, signProfile, signMovies, signSavedMovies, isLoggedIn,
     const [cardsMovies, setCardsMovies] = useState([]);
     const [cardsMoviesSave, setCardsMoviesSave] = useState([]);
     const [error, setError] = useState([]);
+
 
     useEffect(() => {
         Promise.all([apiMovies.getMoviesInfo(), apiMain.getInitialCards()])
@@ -118,6 +119,8 @@ function searchCards (request, chooseShortMovies) {
 }
 
 
+
+
     function handleCardLike(card) {
 
        if (cardsMoviesSave=== undefined){
@@ -128,7 +131,7 @@ function searchCards (request, chooseShortMovies) {
                .catch(err => console.log(err));
        } else {
            const ownerCards = cardsMoviesSave.filter(e => e.owner === currentUser._id);
-           const isLiked = ownerCards.find(i => i.movieId === card.id);
+           const isLiked = ownerCards.find(i => i.movieId === card._id);
 
            if (isLiked === undefined) {
                apiMain.likeCard(card)
@@ -157,9 +160,9 @@ function searchCards (request, chooseShortMovies) {
                 <main className="content">
                     <Header singHeader={singHeader} signProfile={signProfile} onMenu={handleMenuClick}
                             signMain={signMain} moviesPage={moviesPage} signSavedMovies={signSavedMovies}/>
-                    <SearchForm searchCards={searchCards}/>
+                    <SearchForm searchCards={searchCards} />
                     {filterValues !== undefined &&
-                    <MoviesCardList myCard={cardsMoviesSave} onCardLike={handleCardLike} cardsMovies={filterValues} definitionWidth={definitionWidth}
+                    <MoviesCardList  myCard={cardsMoviesSave} onCardLike={handleCardLike} cardsMovies={filterValues} definitionWidth={definitionWidth}
                                     numberOfRender={numberOfRender} savedMovies='false'/>}
                     {filterValues !== undefined &&
                     <MoviesMore numberOfRender={numberOfRender} cardsMovies={filterValues}

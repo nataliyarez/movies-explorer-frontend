@@ -57,7 +57,7 @@ class Auth {
 }
 
 const auth = new Auth({ // подключение к api
-    baseUrl: 'http://localhost:3005'
+    baseUrl: 'https://api.movies.rezvushkina.nomoredomains.icu'
 
 });
 

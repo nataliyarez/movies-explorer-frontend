@@ -104,3 +104,14 @@ padding-top: 80px;
     background: none;
     border: none;
 }
+.auth__link_white:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.auth__link_red:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+.auth__link_disabled{
+    color: #e5e5e5;
+}

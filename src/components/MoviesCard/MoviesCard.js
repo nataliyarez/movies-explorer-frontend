@@ -1,5 +1,5 @@
 import './MoviesCard.css';
-import React, {useState} from "react";
+import React from "react";
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function getHours(time) {
@@ -25,11 +25,14 @@ function MoviesCard(props) {
 
     let cardLikeButtonClassName;
 
+
     if (props.myCard===undefined){
         cardLikeButtonClassName = 'element__like'
     } else {
+
         const ownerCards = props.myCard.filter(e => e.owner === currentUser._id);
-        const isLiked = ownerCards.find(i => i.movieId === props.card.id);
+
+        const isLiked = ownerCards.find(i => i.movieId === props.card._id);
         if (isLiked === undefined) {
             cardLikeButtonClassName = 'element__like'
         } else {
@@ -39,11 +42,12 @@ function MoviesCard(props) {
 
     const handleLikeClick = () => {
         props.onCardLike(props.card);
+
     }
 
     const handleDeleteClick = () => {
         props.onCardDelete(props.card);
-        console.log('карточка', props.card)
+
     }
    const time = getHours(props.card.duration);
 

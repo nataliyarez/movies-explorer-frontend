@@ -16,7 +16,6 @@ function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
 
     const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
     const [cardsMoviesSave, setCardsMoviesSave] = useState([]);
-    const [error, setError] = useState([]);
 
 
     const handleMenuClick = () => {
@@ -37,17 +36,14 @@ function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
             })
             .catch((err) => {
                 console.log(err);
-                setError(err);
+
             })
 
     }, [])
 
     function handleCardDelete(card) {
-        console.log('карточка', card)
         const ownerCards = cardsMoviesSave.filter(e => e.owner === currentUser._id);
-        console.log('владелец', ownerCards )
         const isLiked = ownerCards.find(i => i.movieId === card.movieId);
-        console.log('лайкнуто', isLiked )
         apiMain.deleteCard(isLiked._id)
             .then(() => {
                 function deleteCard(value) {
@@ -57,7 +53,7 @@ function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
             })
             .catch(err => console.log(err));
     }
-    const [filterValues, setFilterValues] = useState(undefined);
+
 
     function searchCards (request, chooseShortMovies) {
         setCardsMoviesSave(filter(request, chooseShortMovies, cardsMoviesSave));

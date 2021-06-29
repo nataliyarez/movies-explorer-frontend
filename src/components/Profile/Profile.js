@@ -1,22 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import '../Register/Register.css'
 import Header from "../Header/Header";
 import '../Profile/Profile.css';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
-
+import {useFormWithValidation} from "../FormValidator/FormValidator";
+import '../../styles/error.css'
 
 function Profile({signMain, signProfile, signMovies, signSavedMovies, signOut, onUpdateUser}) {
 
     const moviesPage = true;
+    const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
 
     const currentUser = React.useContext(CurrentUserContext);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
 
 
     useEffect(() => {
-        setName(currentUser.name);
-        setEmail(currentUser.email);
+        if (currentUser !== undefined){
+            setValues(currentUser);
+        }
+
     }, [currentUser]);
 
 
@@ -24,16 +26,17 @@ function Profile({signMain, signProfile, signMovies, signSavedMovies, signOut, o
         e.preventDefault();
 
         onUpdateUser(
-            name, email
+            values.name, values.email
         );
     }
 
-    function handleNameChange(evt) {
-        setName(evt.target.value);
-    }
 
-    function handleEmailChange(evt) {
-        setEmail(evt.target.value);
+    let disabled;
+
+
+    if (isValid===false){
+        disabled = 'disabled'
+
     }
 
 
@@ -46,31 +49,31 @@ function Profile({signMain, signProfile, signMovies, signSavedMovies, signOut, o
                 <div className="auth">
                     <div className="auth__wrapper auth__wrapper_profile">
 
-                        <h3 className="auth__text">Привет, Виталий!</h3>
+                        <h3 className="auth__text">Привет, {values.name}!</h3>
                         <form onSubmit={handleSubmit} className="form form__profile" noValidate>
                             <div className="form__input-wrapper">
                                 <div className="form__profile-text-wrapper">
                                     <p className="form__profile-text">Имя</p>
-                                    <input value={name} onChange={handleNameChange}
-                                           className="form__input form__input_profile" name="name" type="email" required
+                                    <input value={values.name} onChange={handleChange}
+                                           className="form__input form__input_profile" name="name" type="test" required
                                            minLength="2" maxLength="40"/>
                                 </div>
-                                <span id="name-error" className="error"></span>
+                                <span id="name-error" className="error">{errors.name}</span>
                                 <div className="form__profile-text-wrapper form__profile-text-wrapper_email">
                                     <p className="form__profile-text">E-mail</p>
-                                    <input value={email} onChange={handleEmailChange}
+                                    <input value={values.email} onChange={handleChange}
                                            className="form__input form__input_profile" name="email" type="email"
                                            required minLength="2" maxLength="40"/>
                                 </div>
-                                <span id="email-error" className="error"></span>
+                                <span id="email-error" className="error">{errors.email}</span>
                             </div>
 
                     <div className="auth__link-wrapper auth__link-wrapper_profile">
 
-                        <button className="auth__link auth__link_white" type="submit">
+                        <button className="auth__link auth__link_white" disabled={disabled} type="submit">
                             Редактировать
                         </button>
-                        <p onClick={signOut} className="auth__link auth__link_red">Выйти из аккаунта</p>
+                        <p onClick={signOut} className="auth__link auth__link_red" >Выйти из аккаунта</p>
                     </div>
                         </form>
                     </div>

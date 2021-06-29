@@ -1,0 +1,26 @@
+.error {
+    font-size: 12px;
+    line-height: 15px;
+    color: #EE3465;
+    font-family: 'Inter', Arial, sans-serif;
+    margin-bottom: 0px;
+    width: 260px;
+}
+
+.error:last-child {
+    margin-bottom: 0;
+}
+
+
+@media screen and (min-width: 768px) {
+    .error {
+        margin-bottom: 13px;
+        width: 396px;
+    }
+}
+@media screen and (min-width: 1280px) {
+    .error {
+        margin-bottom: 13px;
+        width: 396px;
+    }
+}

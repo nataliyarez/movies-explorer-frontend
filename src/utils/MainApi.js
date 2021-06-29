@@ -52,20 +52,7 @@ class Api {
         })
             .then(this._getResponseData);
     }
-    addCard (name, link) { // добавляем новую карточку
-        return  fetch(this._baseUrl+'/cards', {
-            method: 'POST',
-            headers: {
-                Authorization: `${localStorage.getItem('token')}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: name,
-                link: link
-            })
-        })
-            .then(this._getResponseData);
-    }
+
     deleteCard (cardId){ // удаляем карточку
         return  fetch(this._baseUrl+'/movies/'+cardId, {
             method: 'DELETE',
@@ -92,7 +79,6 @@ class Api {
 
     }
     likeCard (card) { // лайкам и дизлайкам карточку
-console.log('r cthdths',card);
             return  fetch(this._baseUrl+'/movies/', {
                 method: 'POST',
                 headers: {
@@ -108,7 +94,7 @@ console.log('r cthdths',card);
                     image: card.image,
                     trailer: card.trailer,
                     thumbnail: card.thumbnail,
-                    movieId: card.id,
+                    movieId: card._id,
                     nameRU: card.nameRU,
                     nameEN: card.nameEN,
         })
@@ -125,7 +111,7 @@ console.log('r cthdths',card);
 let token = localStorage.getItem('token');
 
 const apiMain = new Api({ // подключение к api
-    baseUrl: 'http://localhost:3005',
+    baseUrl: 'https://api.movies.rezvushkina.nomoredomains.icu',
     headers: {
         Authorization: `${token}`,
         'Content-Type': 'application/json'
