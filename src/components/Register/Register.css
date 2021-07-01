@@ -166,7 +166,11 @@ width: 38px;
     }}
 
 
-
+.form__button_auth_disabled {
+    border: 1px solid rgba(0,0,0,.2);
+    color: rgba(0,0,0,.2);
+    background: #e5e5e5;
+}
 
 .auth__link-wrapper{
     display: flex;
@@ -208,3 +212,4 @@ width: 38px;
     opacity: 0.8;
     cursor: pointer;
 }
+

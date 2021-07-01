@@ -1,8 +1,8 @@
 .movies-more__button-wrapper {
-    display: flex;
     justify-content: center;
-
     padding: 50px 10px 80px 10px;
+    visibility: hidden;
+    display: none;
 }
 
 @media screen and (min-width: 768px) {
@@ -19,7 +19,10 @@
 
     }
 }
-
+.movies-more__button-wrapper_visible {
+    visibility: visible;
+    display: flex;
+}
 
 .movies-more__button {
     background: #202020;

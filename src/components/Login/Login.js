@@ -2,15 +2,27 @@
 import {React} from "react";
 import '../Register/Register.css'
 import registerLogo from "../../images/header_logo.svg";
+import '../../styles/error.css'
+
+import {useFormWithValidation} from "../FormValidator/FormValidator"
+
+function Login ({onLogin, signOut, signMain }) {
+
+    const { values, handleChange, errors, isValid } = useFormWithValidation();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onLogin(values.email, values.password);
+
+    }
 
 
+    let disabled;
+    let classDisabled
 
-function Login ({ signOut, signMain }) {
-
-
-
-
-
+    if (isValid===false){
+        disabled = 'disabled'
+        classDisabled = 'form__button_auth_disabled'
+    }
     return (
         <div className="page">
 
@@ -18,17 +30,17 @@ function Login ({ signOut, signMain }) {
                 <div className="auth__wrapper">
                     <img onClick={signMain} alt="Лого"  className="auth__logo" src={registerLogo}/>
                     <h3 className="auth__text">Рады видеть!</h3>
-                    <form  className="form form__auth" noValidate>
+                    <form onSubmit={handleSubmit} className="form form__auth" noValidate>
                         <div className="form__input-wrapper">
                             <p className="form__auth-text">E-mail</p>
-                            <input className="form__input form__input_auth"  name="email" type="email" required minLength="2" maxLength="40"  />
-                            <span id="email-error" className="error"></span>
+                            <input value={values.email} onChange={handleChange}   className="form__input form__input_auth"  name="email" type="email" required minLength="2" maxLength="40"  />
+                            <span id="email-error" className="error">{errors.email}</span>
                             <p className="form__auth-text">Пароль</p>
-                            <input  className="form__input form__input_auth"  name="password" type="password" required minLength="2" maxLength="200" />
-                            <span id="password-error" className="error"></span>
+                            <input value={values.password} onChange={handleChange}  className="form__input form__input_auth"  name="password" type="password" required minLength="2" maxLength="200" />
+                            <span id="password-error" className="error">{errors.password}</span>
                         </div>
-                        <button  className="form__button form__button_auth" type="submit">
-                            Зарегистрироваться
+                        <button  className={`form__button form__button_auth ${classDisabled}`} disabled={disabled} type="submit">
+                            Войти
                         </button>
                     </form>
                 </div>

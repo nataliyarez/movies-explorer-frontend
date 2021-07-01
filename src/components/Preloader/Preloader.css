@@ -40,6 +40,7 @@
 }
 
 .preloader {
+    visibility: visible;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,6 +48,12 @@
     height: 100%;
     z-index: 10;
     padding: 20px;
+
+}
+
+.preloader_visible {
+    visibility: visible;
+    display: flex;
 }
 
 .preloader__container {

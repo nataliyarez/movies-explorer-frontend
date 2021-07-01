@@ -4,13 +4,20 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import Navigation from "../Navigation/Navigation"
 import '../../styles/page.css';
-import React, { useState} from "react";
+import React, { useState, useEffect} from "react";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {apiMain} from "../../utils/MainApi";
+import filter from "../Filter/Filter";
 
 
-function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
+function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies, loggedIn}) {
+    const currentUser = React.useContext(CurrentUserContext);
     const moviesPage = true;
 
     const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
+    const [cardsMoviesSave, setCardsMoviesSave] = useState([]);
+    const [filterValues, setFilterValues] = useState(undefined);
+
 
     const handleMenuClick = () => {
         setIsProfilePopupOpen(true);
@@ -22,14 +29,47 @@ function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
 
     }
 
+
+    useEffect(() => {
+        apiMain.getInitialCards()
+            .then((cards) => {
+                setCardsMoviesSave(cards);
+                setFilterValues(cards);
+            })
+            .catch((err) => {
+                console.log(err);
+
+            })
+
+    }, [])
+
+    function handleCardDelete(card) {
+        const ownerCards = cardsMoviesSave.filter(e => e.owner === currentUser._id);
+        const isLiked = ownerCards.find(i => i.movieId === card.movieId);
+        apiMain.deleteCard(isLiked._id)
+            .then(() => {
+                function deleteCard(value) {
+                    return value._id !== isLiked._id;
+                }
+                setCardsMoviesSave(cardsMoviesSave.filter(deleteCard));
+            })
+            .catch(err => console.log(err));
+    }
+
+
+    function searchCards (request, chooseShortMovies) {
+
+        setFilterValues(filter(request, chooseShortMovies, cardsMoviesSave));
+    }
+
     return (
         <>
 
             <div className="page">
                 <main className="content">
-                    <Header moviesPage={moviesPage} onMenu={handleMenuClick} signMain={signMain} signMovies={signMovies} signSavedMovies={signSavedMovies} signProfile={signProfile} />
-                    <SearchForm/>
-                    <MoviesCardList savedMovies='true'/>
+                    <Header loggedIn={loggedIn} moviesPage={moviesPage} onMenu={handleMenuClick} signMain={signMain} signMovies={signMovies} signSavedMovies={signSavedMovies} signProfile={signProfile} />
+                    <SearchForm searchCards={searchCards}/>
+                    {filterValues !== undefined && <MoviesCardList onCardDelete={handleCardDelete} cardsMovies={filterValues} savedMovies='true'/>}
                     <Footer/>
                 </main>
             </div>

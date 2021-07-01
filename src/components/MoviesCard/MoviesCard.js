@@ -1,12 +1,19 @@
 import './MoviesCard.css';
+import React from "react";
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-import React, {useState} from "react";
+function getHours(time) {
+    let hours = Math.trunc(time/60);
+    let minutes = time % 60;
+    return hours + 'ч ' + minutes + 'м';
+}
 
 function MoviesCard(props) {
-    const [isLiked, setIsLiked] = useState(false);
+    const currentUser = React.useContext(CurrentUserContext);
+
     let visible;
     let visibleCross;
-    let visibleLiked;
+
     if (props.savedMovies==='true'){
         visibleCross = 'element__cross-wrapper_visible'
         visible = 'element__likes-wrapper'
@@ -15,39 +22,53 @@ function MoviesCard(props) {
         visibleCross = 'element__cross-wrapper'
     }
 
-if (isLiked===true) {
-    visibleLiked = 'element__like_active'
-} else {
-    visibleLiked = 'element__like'
-}
 
+    let cardLikeButtonClassName;
+
+
+    if (props.myCard===undefined){
+        cardLikeButtonClassName = 'element__like'
+    } else {
+
+        const ownerCards = props.myCard.filter(e => e.owner === currentUser._id);
+
+        const isLiked = ownerCards.find(i => i.movieId === props.card._id);
+        if (isLiked === undefined) {
+            cardLikeButtonClassName = 'element__like'
+        } else {
+            cardLikeButtonClassName = 'element__like element__like_active'
+        }
+    }
 
     const handleLikeClick = () => {
-    if (isLiked===false){
-        setIsLiked(true)
-    } else {
-        setIsLiked(false)
-    }
+        props.onCardLike(props.card);
 
     }
+
+    const handleDeleteClick = () => {
+        props.onCardDelete(props.card);
+
+    }
+   const time = getHours(props.card.duration);
+
 
 return (
 
 
     <li className="element">
-        <img  alt={props.name} className="element__image"
-             src={props.card.link}/>
+        <a href={props.card.trailerLink}  target="_blank" rel="noreferrer"> <img   alt={props.card.nameRU} className="element__image"
+                                      src={props.card.image}/> </a>
              <div className="element__info-wrapper">
                  <div className="element__text-wrapper">
-            <h3 className="element__text-name">{props.card.name}</h3>
-                 <h4 className="element__text-duration">{props.card.duration}</h4>
+            <h3 className="element__text-name">{props.card.nameRU}</h3>
+                 <h4 className="element__text-duration">{time}</h4>
                      </div>
                  <div className={`element__likes-wrapper ${visible}`}>
-                <button onClick={handleLikeClick} aria-label="сердечко" className={`element__like ${visibleLiked}`}
+                <button onClick={handleLikeClick} aria-label="сердечко" className={cardLikeButtonClassName}
                         type="button"></button>
                  </div>
                  <div className={`element__cross-wrapper ${visibleCross}`}>
-                     <button aria-label="крестик" className="element__cross"
+                     <button onClick={handleDeleteClick} aria-label="крестик" className="element__cross"
                              type="button"></button>
                  </div>
         </div>
