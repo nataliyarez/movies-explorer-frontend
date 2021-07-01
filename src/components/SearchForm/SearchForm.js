@@ -14,8 +14,10 @@ function SearchForm({searchCards}) {
 
         searchCards(request);
 
+
     }
     function handleNameChange(evt) {
+
         setRequest(evt.target.value);
     }
     function handleCheckboxChange (evt){

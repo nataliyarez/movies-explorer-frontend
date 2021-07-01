@@ -5,8 +5,11 @@ import '../Profile/Profile.css';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 import {useFormWithValidation} from "../FormValidator/FormValidator";
 import '../../styles/error.css'
+import InfoTooltip from '../InfoTooltip/InfoTooltip'
+import Navigation from "../Navigation/Navigation";
 
-function Profile({signMain, signProfile, signMovies, signSavedMovies, signOut, onUpdateUser}) {
+
+function Profile({signMain, signProfile, onMenu, signMovies, signSavedMovies, signOut, onUpdateUser, isOpen, isOpenInfo, message, onClose, loggedIn}) {
 
     const moviesPage = true;
     const { values, handleChange, errors, isValid, setValues } = useFormWithValidation();
@@ -41,10 +44,11 @@ function Profile({signMain, signProfile, signMovies, signSavedMovies, signOut, o
 
 
     return (
+        <>
         <div className="page">
 
             <div className="profile">
-                <Header moviesPage={moviesPage} signMain={signMain} signProfile={signProfile} signMovies={signMovies}
+                <Header onMenu={onMenu} loggedIn={loggedIn} moviesPage={moviesPage} signMain={signMain} signProfile={signProfile} signMovies={signMovies}
                         signSavedMovies={signSavedMovies}/>
                 <div className="auth">
                     <div className="auth__wrapper auth__wrapper_profile">
@@ -80,6 +84,10 @@ function Profile({signMain, signProfile, signMovies, signSavedMovies, signOut, o
                 </div>
             </div>
         </div>
+    <InfoTooltip isOpenInfo={isOpenInfo} message={message} onClose={onClose}/>
+            <Navigation signProfile={signProfile} signMain={signMain} signSavedMovies={signSavedMovies}
+                        signMovies={signMovies} onClose={onClose} isOpen={isOpen}/>
+    </>
     );
 }
 

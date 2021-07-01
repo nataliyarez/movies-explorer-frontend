@@ -1,16 +1,18 @@
 import React from 'react'
 import './MoviesError.css'
 
-const MoviesError = ({error}) => {
+const MoviesError = ({error, cardsMovies}) => {
 let visibleError;
+
 
     let notFound;
 if (error === 'Ошибка: 404'){
 
     notFound = 'movies-error__text_not-found'
-} else if (error !== []){
+} else if (cardsMovies.length === 0){
     notFound = 'movies-error__text_not-found'
-} else {
+
+} else if (error.length !== 0) {
     visibleError = 'movies-error__text_error'
 }
 

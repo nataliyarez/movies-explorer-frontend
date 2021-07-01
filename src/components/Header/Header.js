@@ -11,7 +11,9 @@ function Header(props) {
     let visibleSavedMovies;
     let visibleMovies;
     let visibleAccount;
-    if (props.moviesPage===true){
+
+
+    if (props.loggedIn===true){
 
         visibleMenu = 'header__menu-button_visible'
         visibleSavedMovies = 'header__saved-movies_visible'

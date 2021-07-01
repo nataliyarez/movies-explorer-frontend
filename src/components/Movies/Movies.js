@@ -11,25 +11,15 @@ import {apiMain} from "../../utils/MainApi";
 import Preloader from "../Preloader/Preloader";
 import MoviesError from "../MoviesError/MoviesError";
 import filter from "../Filter/Filter";
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 
-function Movies({signMain, signProfile, signMovies, signSavedMovies, isLoggedIn, singHeader}) {
+
+function Movies({signMain, signProfile, signMovies, signSavedMovies, loggedIn, singHeader, search, onClose, isOpen, onMenu}) {
     const currentUser = React.useContext(CurrentUserContext);
     const moviesPage = true;
 
-    const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
 
-
-    const handleMenuClick = () => {
-        setIsProfilePopupOpen(true);
-    }
-
-
-    const closePopup = () => {
-        setIsProfilePopupOpen(false);
-
-    }
 
     const [numberOfRender, setNumberOfRender] = useState('');
 
@@ -58,19 +48,23 @@ function Movies({signMain, signProfile, signMovies, signSavedMovies, isLoggedIn,
         }
     }
 
-    const delay = 1000;
-    let throttled = false;
-    window.addEventListener('resize', function () {
 
-        if (!throttled) {
-            definitionWidth();
-            throttled = true;
 
-            setTimeout(function () {
-                throttled = false;
-            }, delay);
-        }
-    });
+        const delay = 1000;
+        let throttled = false;
+       window.addEventListener('resize', function () {
+
+            if (!throttled) {
+                definitionWidth();
+                throttled = true;
+
+                setTimeout(function () {
+                    throttled = false;
+                }, delay);
+            }
+        });
+
+
 
     function formatCardMovies(item) {
         return {
@@ -100,6 +94,7 @@ function Movies({signMain, signProfile, signMovies, signSavedMovies, isLoggedIn,
                 setCardsMovies(data);
                 setCardsMoviesSave(cards);
                 definitionWidth();
+                setFilterValues(search);
 
             })
             .catch((err) => {
@@ -110,47 +105,54 @@ function Movies({signMain, signProfile, signMovies, signSavedMovies, isLoggedIn,
     }, [])
 
 
-            const [filterValues, setFilterValues] = useState(undefined);
+    const [filterValues, setFilterValues] = useState(undefined);
+    const [preloader, setPreloader] = useState(false);
 
 
+    function searchCards(request, chooseShortMovies) {
+        setPreloader(true);
+        setTimeout(function () {
+            setFilterValues(filter(request, chooseShortMovies, cardsMovies));
+            setPreloader(false);
+        }, 1000);
 
-function searchCards (request, chooseShortMovies) {
-    setFilterValues(filter(request, chooseShortMovies, cardsMovies));
-}
 
+    }
 
 
 
     function handleCardLike(card) {
 
-       if (cardsMoviesSave=== undefined){
-           apiMain.likeCard(card)
-               .then((newCard) => {
-                   setCardsMoviesSave([newCard]);
-               })
-               .catch(err => console.log(err));
-       } else {
-           const ownerCards = cardsMoviesSave.filter(e => e.owner === currentUser._id);
-           const isLiked = ownerCards.find(i => i.movieId === card._id);
+        if (cardsMoviesSave === undefined) {
+            apiMain.likeCard(card)
+                .then((newCard) => {
+                    setCardsMoviesSave([newCard]);
+                })
+                .catch(err => console.log(err));
+        } else {
+            const ownerCards = cardsMoviesSave.filter(e => e.owner === currentUser._id);
+            const isLiked = ownerCards.find(i => i.movieId === card._id);
 
-           if (isLiked === undefined) {
-               apiMain.likeCard(card)
-                   .then((newCard) => {
-                       setCardsMoviesSave([newCard, ...cardsMoviesSave]);
-                   })
-                   .catch(err => console.log(err));
-           } else {
-               apiMain.deleteCard(isLiked._id)
-                   .then(() => {
-                       function deleteCard(value) {
-                           return value._id !== isLiked._id;
-                       }
-                       setCardsMoviesSave(cardsMoviesSave.filter(deleteCard));
-                   })
-                   .catch(err => console.log(err));
-           }
-       }
+            if (isLiked === undefined) {
+                apiMain.likeCard(card)
+                    .then((newCard) => {
+                        setCardsMoviesSave([newCard, ...cardsMoviesSave]);
+                    })
+                    .catch(err => console.log(err));
+            } else {
+                apiMain.deleteCard(isLiked._id)
+                    .then(() => {
+                        function deleteCard(value) {
+                            return value._id !== isLiked._id;
+                        }
+
+                        setCardsMoviesSave(cardsMoviesSave.filter(deleteCard));
+                    })
+                    .catch(err => console.log(err));
+            }
+        }
     }
+
 
 
     return (
@@ -158,23 +160,24 @@ function searchCards (request, chooseShortMovies) {
 
             <div className="page">
                 <main className="content">
-                    <Header singHeader={singHeader} signProfile={signProfile} onMenu={handleMenuClick}
+                    <Header loggedIn={loggedIn} singHeader={singHeader} signProfile={signProfile} onMenu={onMenu}
                             signMain={signMain} moviesPage={moviesPage} signSavedMovies={signSavedMovies}/>
-                    <SearchForm searchCards={searchCards} />
-                    {filterValues !== undefined &&
-                    <MoviesCardList  myCard={cardsMoviesSave} onCardLike={handleCardLike} cardsMovies={filterValues} definitionWidth={definitionWidth}
+                    <SearchForm searchCards={searchCards}/>
+                    {filterValues !== undefined & filterValues !==null & preloader === false &&
+                    <MoviesCardList myCard={cardsMoviesSave} onCardLike={handleCardLike} cardsMovies={filterValues}
+                                    definitionWidth={definitionWidth}
                                     numberOfRender={numberOfRender} savedMovies='false'/>}
-                    {filterValues !== undefined &&
+                    {filterValues !== undefined & filterValues !==null &&
                     <MoviesMore numberOfRender={numberOfRender} cardsMovies={filterValues}
                                 onButtonClick={handleAddCards}/>}
-                    {filterValues === undefined && <Preloader/>}
-                    {filterValues !== undefined && <MoviesError cardsMovies={filterValues} error={error}/>}
+                    {preloader === true  && <Preloader/>}
+                    {filterValues !== undefined & filterValues !==null && <MoviesError cardsMovies={filterValues} error={error}/>}
                     <Footer/>
 
                 </main>
             </div>
             <Navigation signProfile={signProfile} signMain={signMain} signSavedMovies={signSavedMovies}
-                        signMovies={signMovies} onClose={closePopup} isOpen={isProfilePopupOpen}/>
+                        signMovies={signMovies} onClose={onClose} isOpen={isOpen}/>
 
 
         </>

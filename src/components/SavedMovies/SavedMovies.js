@@ -10,12 +10,13 @@ import {apiMain} from "../../utils/MainApi";
 import filter from "../Filter/Filter";
 
 
-function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
+function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies, loggedIn}) {
     const currentUser = React.useContext(CurrentUserContext);
     const moviesPage = true;
 
     const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
     const [cardsMoviesSave, setCardsMoviesSave] = useState([]);
+    const [filterValues, setFilterValues] = useState(undefined);
 
 
     const handleMenuClick = () => {
@@ -33,6 +34,7 @@ function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
         apiMain.getInitialCards()
             .then((cards) => {
                 setCardsMoviesSave(cards);
+                setFilterValues(cards);
             })
             .catch((err) => {
                 console.log(err);
@@ -56,7 +58,8 @@ function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
 
 
     function searchCards (request, chooseShortMovies) {
-        setCardsMoviesSave(filter(request, chooseShortMovies, cardsMoviesSave));
+
+        setFilterValues(filter(request, chooseShortMovies, cardsMoviesSave));
     }
 
     return (
@@ -64,9 +67,9 @@ function SavedMovies({  signMain, signProfile, signMovies, signSavedMovies}) {
 
             <div className="page">
                 <main className="content">
-                    <Header moviesPage={moviesPage} onMenu={handleMenuClick} signMain={signMain} signMovies={signMovies} signSavedMovies={signSavedMovies} signProfile={signProfile} />
+                    <Header loggedIn={loggedIn} moviesPage={moviesPage} onMenu={handleMenuClick} signMain={signMain} signMovies={signMovies} signSavedMovies={signSavedMovies} signProfile={signProfile} />
                     <SearchForm searchCards={searchCards}/>
-                    {cardsMoviesSave !== undefined && <MoviesCardList onCardDelete={handleCardDelete} cardsMovies={cardsMoviesSave} savedMovies='true'/>}
+                    {filterValues !== undefined && <MoviesCardList onCardDelete={handleCardDelete} cardsMovies={filterValues} savedMovies='true'/>}
                     <Footer/>
                 </main>
             </div>

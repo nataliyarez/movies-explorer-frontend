@@ -15,21 +15,22 @@ import {CurrentUserContext} from '../../contexts/CurrentUserContext';
 
 
 
-
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-   // const [email, setEmail] = useState('');
-    //const [message, setMessage] = useState('');
-   // const [isInfoTooltip, setInfoTooltip] = useState(false);
+    // const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+    const [isInfoTooltip, setInfoTooltip] = useState(false);
     const [userDataLogin, setUserDataLogin] = useState({password: '', email: ''});
     const [userDataRegister, setUserDataRegister] = useState({name: '', password: '', email: ''});
-
+    const [search, setSearch] = useState([]);
 
 
     const history = useHistory();
 
     useEffect(() => {
         tokenCheck()
+        setSearch(JSON.parse(localStorage.getItem("search")));
+
     }, [])
     useEffect(() => {
         if (isLoggedIn) {
@@ -51,11 +52,9 @@ function App() {
     }, [isLoggedIn])
 
 
+    const handleAuthorizeUser = (email, password) => {
 
-
-    const handleAuthorizeUser = (email, password ) => {
-
-       // setEmail(userDataLogin.email);
+        // setEmail(userDataLogin.email);
         return auth.authorizeUser(password, email)
             .then((data) => {
                 if (data.token) {
@@ -79,15 +78,11 @@ function App() {
         return auth.registerUser(name, password, email)
 
             .then(() => {
-              //  setMessage(true);
-              //  setInfoTooltip(true);
                 history.push("/movies")
                 setUserDataRegister({name: '', password: '', email: ''});
 
             })
             .catch((err) => {
-              //  setMessage(false);
-              //  setInfoTooltip(true);
                 setUserDataRegister({name: '', password: '', email: ''});
                 console.log(err);
             })
@@ -98,7 +93,7 @@ function App() {
             auth.getValidationToken(token)
                 .then((data) => {
                     if (data) {
-                      //  setEmail(data.email);
+                        //  setEmail(data.email);
                         setIsLoggedIn(true);
                     }
                 });
@@ -109,11 +104,17 @@ function App() {
     const handleUpdateUser = (name, email) => {
         apiMain.editInfo(name, email)
             .then((data) => {
+                setMessage(true);
+                setInfoTooltip(true);
                 setCurrentUser(data);
-                history.push("/movies");
+
 
             })
-            .catch(err => console.log(err));
+            .catch((err) => {
+                setMessage(false);
+                setInfoTooltip(true);
+                console.log(err)
+            });
     }
 
     const handleChangeRegister = (e) => {
@@ -130,6 +131,22 @@ function App() {
             ...userDataLogin,
             [name]: value
         })
+    }
+
+    const [isProfilePopupOpen, setIsProfilePopupOpen] = useState(false);
+
+
+    const handleMenuClick = () => {
+
+        setIsProfilePopupOpen(true);
+    }
+
+
+    const closePopup = () => {
+        setIsProfilePopupOpen(false);
+        setInfoTooltip(false);
+
+
     }
 
 
@@ -164,7 +181,7 @@ function App() {
     function singHeader() {
         if (isLoggedIn) {
             history.push("/movies")
-        }else {
+        } else {
             history.push('/signin');
         }
 
@@ -174,54 +191,63 @@ function App() {
         <>
             <CurrentUserContext.Provider value={currentUser}>
 
-            <Switch>
+                <Switch>
 
-                <ProtectedRoute
-                    path="/movies"
-                    loggedIn={isLoggedIn}
-                    component={Movies}
-                    signOut={signOut}
-                   // email={email}
-                    signMain={signMain}
-                    signProfile={signProfile}
-                    signMovies={signMovies}
-                    signSavedMovies={signSavedMovies}
-                    singHeader={singHeader}
+                    <ProtectedRoute
+                        path="/movies"
+                        loggedIn={isLoggedIn}
+                        component={Movies}
+                        signOut={signOut}
+                        // email={email}
+                        signMain={signMain}
+                        signProfile={signProfile}
+                        signMovies={signMovies}
+                        signSavedMovies={signSavedMovies}
+                        singHeader={singHeader}
+                        search={search}
+                        onClose={closePopup}
+                        isOpen={isProfilePopupOpen}
+                        onMenu={handleMenuClick}
 
-                />
+                    />
+
+                    <ProtectedRoute
+                        path="/profile"
+                        component={Profile}
+                        onMenu={handleMenuClick} loggedIn={isLoggedIn} isOpen={isProfilePopupOpen}
+                        isOpenInfo={isInfoTooltip} message={message} onClose={closePopup} signOut={signOut}
+                        signProfile={signProfile} signMain={signMain} signMovies={signMovies}
+                        signSavedMovies={signSavedMovies} onUpdateUser={handleUpdateUser}/>
 
 
-                    <Route path="/profile">
-                        <Profile signOut={signOut} signProfile={signProfile} signMain={signMain} signMovies={signMovies}
-                                 signSavedMovies={signSavedMovies} onUpdateUser={handleUpdateUser} />
+                    <Route path="/signin">
+                        <Login signOut={signRegister} onLogin={handleAuthorizeUser} userData={userDataLogin}
+                               onChange={handleChangeLogin}
+                        />
+                    </Route>
+                    <Route path="/signup">
+                        <Register signOut={signOut} onRegister={handleRegister} userData={userDataRegister}
+                                  onChange={handleChangeRegister}
+                        />
                     </Route>
 
 
+                    <Route exact path="/">
+                        <Main onMenu={handleMenuClick} onClose={closePopup} isOpen={isProfilePopupOpen}
+                              loggedIn={isLoggedIn} signProfile={signProfile} signMovies={signMovies}
+                              signSavedMovies={signSavedMovies} singHeader={singHeader} signOut={signOut}
+                              signMain={signMain} signRegister={signRegister}/>
+                    </Route>
 
-                <Route path="/signin">
-                    <Login signOut={signRegister} onLogin={handleAuthorizeUser} userData={userDataLogin}
-                           onChange={handleChangeLogin}
-                    />
-                </Route>
-                <Route path="/signup">
-                    <Register signOut={signOut} onRegister={handleRegister} userData={userDataRegister}
-                              onChange={handleChangeRegister}
-                    />
-                </Route>
-
-
-                <Route exact path="/">
-                    <Main  singHeader={singHeader} signOut={signOut} signMain={signMain} signRegister={signRegister}/>
-                </Route>
+                    <ProtectedRoute
+                        path="/saved-movies"
+                        component={SavedMovies}
+                        loggedIn={isLoggedIn} signProfile={signProfile} signMain={signMain}
+                        signMovies={signMovies}
+                        signSavedMovies={signSavedMovies}/>
 
 
-
-                <Route path="/saved-movies">
-                    <SavedMovies signProfile={signProfile} signMain={signMain} signMovies={signMovies}
-                                 signSavedMovies={signSavedMovies}/>
-                </Route>
-
-            </Switch>
+                </Switch>
             </CurrentUserContext.Provider>
         </>
 

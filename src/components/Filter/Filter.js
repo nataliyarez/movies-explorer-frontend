@@ -1,4 +1,5 @@
 function filter (request, chooseShortMovies, cardsMovies) {
+
     if (chooseShortMovies === true && request !== '') {
 
         const filterValues = (name) => {
@@ -15,6 +16,8 @@ function filter (request, chooseShortMovies, cardsMovies) {
                 return data.nameRU.toLowerCase().indexOf(name.toLowerCase()) > -1;
             });
         }
+
+        localStorage.setItem('search', JSON.stringify(filterValues(request)));
         return filterValues(request);
 
     }
